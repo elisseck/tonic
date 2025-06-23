@@ -9,3 +9,5 @@ stylesheets[all][] = css/tonic.css
 tags[] = Menus
 tags[] = Site Navigation
 tags[] = User Interface
+
+maintainers[laryn] = Laryn Kragt Bakker

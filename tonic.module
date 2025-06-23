@@ -72,65 +72,68 @@ function tonic_preprocess_page(&$variables) {
 
 /**
  * Implements hook_library_info().
+ *
+ * We have to redeclare some of these because Gin is not the current theme, and
+ * libraries defined by themes aren't available to modules.
  */
 function tonic_library_info() {
   $basethemeurl = backdrop_get_path('theme', 'gin');
 
-  $libraries = array(
-    'gin_init' => array(
+  $libraries = [
+    'gin_init' => [
       'title' => 'Init',
       'version' => BACKDROP_VERSION,
       'header' => TRUE,
-      'js' => array(
-        $basethemeurl . '/dist/js/init.js' => array(),
-      ),
-    ),
-    'gin_settings' => array(
+      'js' => [
+        $basethemeurl . '/dist/js/init.js' => [],
+      ],
+    ],
+    'gin_settings' => [
       'title' => 'Settings',
       'version' => BACKDROP_VERSION,
-      'js' => array(
-        $basethemeurl . '/dist/js/settings.js' => array(),
-      ),
-      'css' => array(
-        $basethemeurl . '/dist/css/components/settings.css' => array(),
-      ),
-      'dependencies' => array(
-        array('gin', 'gin_once'),
-      ),
-    ),
-    'gin_dialog' => array(
+      'js' => [
+        $basethemeurl . '/dist/js/settings.js' => [],
+      ],
+      'css' => [
+        $basethemeurl . '/dist/css/components/settings.css' => [],
+      ],
+      'dependencies' => [
+        ['gin', 'gin_once'],
+      ],
+    ],
+    'gin_dialog' => [
       'title' => 'Dialog',
       'version' => BACKDROP_VERSION,
-      'css' => array(
-        $basethemeurl . '/dist/css/components/gin_dialog.css' => array(),
-        $basethemeurl . '/dist/css/theme/dialog.css' => array(),
-      ),
-    ),
-    'gin_admin_bar' => array(
+      'css' => [
+        $basethemeurl . '/dist/css/components/gin_dialog.css' => [],
+        $basethemeurl . '/dist/css/theme/dialog.css' => [],
+      ],
+    ],
+    'gin_admin_bar' => [
       'title' => 'Admin Bar',
       'version' => BACKDROP_VERSION,
-      'css' => array(
-        $basethemeurl . '/dist/css/layout/gin_admin_bar.css' => array(),
-      ),
-    ),
-    'gin_ckeditor5' => array(
+      'css' => [
+        $basethemeurl . '/dist/css/layout/gin_admin_bar.css' => [],
+      ],
+    ],
+    'gin_ckeditor5' => [
       'title' => 'CKEditor5',
       'version' => BACKDROP_VERSION,
-      'css' => array(
-        $basethemeurl . '/dist/css/components/ckeditor5.css' => array(),
-      ),
-    ),
-    'gin_coffee' => array(
+      'css' => [
+        $basethemeurl . '/dist/css/components/ckeditor5.css' => [],
+      ],
+    ],
+    'gin_coffee' => [
       'title' => 'Coffee',
       'version' => BACKDROP_VERSION,
-      'css' => array(
-        $basethemeurl . '/dist/css/components/gin_coffee.css' => array(
+      'css' => [
+        $basethemeurl . '/dist/css/components/gin_coffee.css' => [
           'type' => 'file',
           'media' => 'screen',
-        ),
-      ),
-    ),
-  );
+        ],
+      ],
+    ],
+  ];
 
   return $libraries;
 }
@@ -149,9 +152,8 @@ function tonic_library_info() {
  */
 function _tonic_gin_is_activated($feature = 'gin') {
   $activated_cache = cache_get('gin_activated_' . $GLOBALS['theme_key']);
-  $activated = $activated_cache->data ? $activated_cache->data : array();
+  $activated = $activated_cache->data ?? [];
   if (empty($activated)) {
-    $activated = array();
     $themes = list_themes();
     // First, see if Gin is activated, and make sure it's not the current theme.
     if ($themes['gin']->status && $GLOBALS['theme_key'] != 'gin') {
@@ -174,7 +176,7 @@ function _tonic_gin_is_activated($feature = 'gin') {
     return $activated;
   }
   else {
-    return ($activated['gin'] && !empty($activated[$feature])) ? $activated[$feature] : FALSE;
+    return ($activated['gin'] && ($activated[$feature] ?? FALSE));
   }
 
 }

@@ -3,11 +3,14 @@
 An experimental module to bring Gin to the front end. Requires the Gin admin
 theme.
 
-Details will be updated as functionality is added and tested.
+At the moment, the admin menu will be styled to match the way it looks in Gin,
+and dialogs will look more like those that Gin provides. The goal is a more
+seamless editorial experience between the front and back end.
 
 ## Required Theme
 
-* [Gin](https://github.com/backdrop-contrib/gin)
+* [Gin](https://github.com/backdrop-contrib/gin), which must be available on
+  the site and also enabled.
 
 ## Installation
 
