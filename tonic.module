@@ -45,7 +45,6 @@ function tonic_preprocess_page(&$variables) {
     }
 
     $variables['html_classes'] = [];
-    $config = config('gin.settings');
     $basethemeurl = backdrop_get_path('theme', 'gin');
 
     // Darkmode.
@@ -151,25 +150,28 @@ function tonic_library_info() {
  *   FALSE otherwise.
  */
 function _tonic_gin_is_activated($feature = 'gin') {
-  $activated_cache = cache_get('gin_activated_' . $GLOBALS['theme_key']);
-  $activated = $activated_cache->data ?? [];
-  if (empty($activated)) {
-    $themes = list_themes();
-    // First, see if Gin is activated, and make sure it's not the current theme.
-    if ($themes['gin']->status && $GLOBALS['theme_key'] != 'gin') {
-      $activated['gin'] = TRUE;
+  $activated = &backdrop_static(__FUNCTION__ . '_' . $GLOBALS['theme_key']);
+  if (!isset($activated)) {
+    $activated_cache = cache_get('gin_activated_' . $GLOBALS['theme_key']);
+    $activated = $activated_cache->data ?? [];
+    if (empty($activated)) {
+      $themes = list_themes();
+      // First, see if Gin is activated, and make sure it's not the current theme.
+      if ($themes['gin']->status && $GLOBALS['theme_key'] != 'gin') {
+        $activated['gin'] = TRUE;
 
-      // Check admin bar.
-      // @todo: This should be a setting in the theme as an additional check.
-      if (module_exists('admin_bar') && user_access('access administration bar')) {
-        $activated['admin_bar'] = TRUE;
+        // Check admin bar.
+        // @todo: This should be a setting in the theme as an additional check.
+        if (module_exists('admin_bar') && user_access('access administration bar')) {
+          $activated['admin_bar'] = TRUE;
+        }
       }
-    }
-    else {
-      $activated['gin'] = FALSE;
-    }
+      else {
+        $activated['gin'] = FALSE;
+      }
 
-    cache_set('gin_activated_' . $GLOBALS['theme_key'], $activated);
+      cache_set('gin_activated_' . $GLOBALS['theme_key'], $activated);
+    }
   }
 
   if ($feature == 'all') {
@@ -178,5 +180,4 @@ function _tonic_gin_is_activated($feature = 'gin') {
   else {
     return ($activated['gin'] && ($activated[$feature] ?? FALSE));
   }
-
 }
