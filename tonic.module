@@ -66,6 +66,19 @@ function tonic_preprocess_page(&$variables) {
     // Set layout density.
     $variables['body_attributes']['data-gin-layout-density'] = theme_get_setting('layout_density', 'gin');
     $variables['classes'][] = 'tonic--enabled';
+    if (_tonic_gin_is_activated('simplei')) {
+      backdrop_add_library('tonic', 'gin_simplei');
+
+      // This can be removed if the simplei module ends up implmenting its own
+      // CSS custom property: https://github.com/backdrop-contrib/simplei/issues/7
+      $simplei = settings_get('simple_environment_indicator');
+      if (!empty($simplei)) {
+        $simplei = explode(' ', str_replace('  ', ' ', $simplei), 2);
+        $simplei_color = $simplei[0];
+        // Add a bar across the top for the Simple EI color.
+        backdrop_add_css(":root { --gin-simplei-color: $simplei_color; }", 'inline');
+      }
+    }
   }
 }
 
@@ -132,6 +145,13 @@ function tonic_library_info() {
         ],
       ],
     ],
+    'gin_simplei' => [
+      'title' => 'Simple Environment Indicator',
+      'version' => BACKDROP_VERSION,
+      'css' => [
+        $basethemeurl . '/dist/css/components/gin_simplei.css' => [],
+      ],
+    ],
   ];
 
   return $libraries;
@@ -161,6 +181,10 @@ function _tonic_gin_is_activated($feature = 'gin') {
       // @todo: This should be a setting in the theme as an additional check.
       if (module_exists('admin_bar') && user_access('access administration bar')) {
         $activated['admin_bar'] = TRUE;
+
+        if (module_exists('simplei')) {
+          $activated['simplei'] = TRUE;
+        }
       }
     }
     else {
