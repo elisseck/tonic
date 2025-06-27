@@ -1,16 +1,23 @@
 .admin-bar body.tonic--enabled {
-  border-top: none;
+  border-block-start-width: var(--gin-toolbar-y-offset);
+
+  .ui-dialog {
+    .ui-dialog-titlebar-close {
+      background: none;
+
+      .ui-icon-closethick {
+        top: 100%;
+      }
+    }
+
+    fieldset {
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .layout {
+    padding-top: var(--gin-toolbar-y-offset);
+    margin-top: calc(-1 * var(--gin-toolbar-y-offset));
+  }
 }
-.admin-bar body.tonic--enabled .ui-dialog .ui-dialog-titlebar-close {
-  background: none;
-}
-.admin-bar body.tonic--enabled .ui-dialog .ui-dialog-titlebar-close .ui-icon-closethick {
-  top: 100%;
-}
-.admin-bar body.tonic--enabled .ui-dialog fieldset {
-  background-color: transparent;
-  border: none;
-}
-.admin-bar body.tonic--enabled .layout {
-  padding-top: 0;
-}/*# sourceMappingURL=tonic.css.map */
