@@ -48,8 +48,20 @@ function tonic_preprocess_page(&$variables) {
     $basethemeurl = backdrop_get_path('theme', 'gin');
 
     // Darkmode.
-    if (theme_get_setting('enable_darkmode', 'gin')) {
+    $darkmode_setting = theme_get_setting('enable_darkmode', 'gin');
+    if ($darkmode_setting) {
       $variables['html_classes'][] = 'gin--dark-mode';
+      backdrop_add_html_head(
+        [
+          '#tag' => 'script',
+          '#attributes' => [
+            'type' => 'application/json',
+            'id' => 'gin-setting-darkmode',
+          ],
+          '#value' => backdrop_json_encode(["ginDarkmode" => $darkmode_setting]),
+        ],
+        'gin_darkmode',
+      );
     }
 
     // Set accent color.
