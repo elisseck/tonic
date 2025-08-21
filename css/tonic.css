@@ -25,3 +25,7 @@
 header.gin-secondary-toolbar {
   height: auto;
 }
+
+.crm-mosaico-wizard .mosaico-templates-wrapper .row > .ng-scope {
+  width: 100%;
+}
