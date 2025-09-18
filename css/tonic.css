@@ -29,3 +29,13 @@ header.gin-secondary-toolbar {
 .crm-mosaico-wizard .mosaico-templates-wrapper .row > .ng-scope {
   width: 100%;
 }
+
+main.region-content {
+  margin-top: 50px;
+}
+body:not(.logged-in) header.region-sticky {
+  inset-block-start: 0px;
+}
+body:not(.logged-in) .sticky-shadow {
+  inset-block-start: 0px;
+}
