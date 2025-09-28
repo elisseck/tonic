@@ -21,3 +21,7 @@
     margin-top: calc(-1 * var(--gin-toolbar-y-offset));
   }
 }
+
+header.gin-secondary-toolbar {
+  height: auto;
+}
