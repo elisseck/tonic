@@ -6,12 +6,16 @@
  */
 
 /**
- * Implements hook_css_alter().
+ * Implements hook_library_info_alter().
+ *
+ * Makes replacement of core admin_bar CSS with Gin's version more robust.
  */
-function tonic_css_alter(&$css) {
-  // unset($css[backdrop_get_path('module','system').'/css/messages.theme.css']);.
-  if (_tonic_gin_is_activated('admin_bar')) {
-    unset($css[backdrop_get_path('module', 'admin_bar').'/css/admin_bar.css']);
+function tonic_library_info_alter(&$libraries, $module) {
+  // Update Admin Bar styles.
+  if ($module == 'admin_bar' && isset($libraries['admin_bar']) && _tonic_gin_is_activated('admin_bar')) {
+    $libraries['admin_bar']['css'] = array(
+      backdrop_get_path('theme', 'gin') . '/dist/css/layout/gin_admin_bar.css' => [],
+    );
   }
 }
 
