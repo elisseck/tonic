@@ -42,7 +42,7 @@ body:not(.logged-in) .sticky-shadow {
 
 .crm-container .crm-submit-buttons .crm-button, .crm-container div.action-link a.button, .crm-container .crm-submit-buttons a.button, .crm-container .crm-submit-buttons a.button:link {
   height: auto;
-  border: 4px solid var(--gin-color-primary-light-hover);
+  border: 4px solid var(--gin-color-primary);
   background: #181A1C;
   font-size: 1.4em;
   font-weight: normal;
