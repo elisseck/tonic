@@ -52,7 +52,7 @@ body:not(.logged-in) .sticky-shadow {
 }
 
 .crm-container .crm-submit-buttons a.button.cancel {
-  background: #999999;
+  background: #666!important;
 }
 
 #crm-container .messages, #crm-container .status {
@@ -63,4 +63,8 @@ body:not(.logged-in) .sticky-shadow {
 #crm-container .messages a, #crm-container .status a {
   color: #81ceff;
   text-decoration: underline;
+}
+
+div.crm-submit-buttons {
+  display: flex!important;
 }
