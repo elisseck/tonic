@@ -55,6 +55,10 @@ body:not(.logged-in) .sticky-shadow {
   background: #666!important;
 }
 
+.crm-container .crm-submit-buttons a.button.cancel:hover {
+  background: #000!important;
+}
+
 #crm-container .messages, #crm-container .status {
   background-color:#44616d;
   color: #fff;
