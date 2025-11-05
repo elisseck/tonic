@@ -53,7 +53,7 @@ function tonic_preprocess_page(&$variables) {
 
     // Darkmode.
     $darkmode_setting = theme_get_setting('enable_darkmode', 'gin');
-    if ($darkmode_setting) {
+    if (isset($darkmode_setting)) {
       $variables['html_classes'][] = 'gin--dark-mode';
       backdrop_add_html_head(
         [
