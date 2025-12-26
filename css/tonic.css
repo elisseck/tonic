@@ -51,6 +51,10 @@ body:not(.logged-in) .sticky-shadow {
   text-decoration: none;
 }
 
+#crm-container .crm-register-button:hover {
+  background: #3e3e3e!important;
+}
+
 .crm-container .crm-submit-buttons a.button.cancel {
   background: #999!important;
 }
