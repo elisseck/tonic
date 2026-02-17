@@ -92,3 +92,7 @@ body.crm-menubar-visible {
 body.crm-menubar-visible .region-sticky, body.crm-menubar-visible .sticky-shadow {
   display: none!important;
 }
+
+body.crm-menubar-visible .page-content {
+  margin-block-start: 0!important;
+}
