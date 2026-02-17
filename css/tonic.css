@@ -64,7 +64,7 @@ body:not(.logged-in) .sticky-shadow {
 }
 
 #crm-container .messages, #crm-container .status {
-  background-color:#44616d;
+  background-color: #44616d;
   color: #fff;
 }
 
@@ -83,4 +83,12 @@ body:not(.logged-in) .sticky-shadow {
 
 div.crm-submit-buttons {
   display: flex!important;
+}
+
+body.crm-menubar-visible {
+  margin-top: 0px!important;
+}
+
+body.crm-menubar-visible .region-sticky, body.crm-menubar-visible .sticky-shadow {
+  display: none!important;
 }
