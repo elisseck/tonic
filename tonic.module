@@ -5,12 +5,21 @@
  * modal styles.
  */
 
+if (file_exists(backdrop_get_path('theme', 'gin') . '/includes/shared.php')) {
+  include_once(backdrop_get_path('theme', 'gin') . '/includes/shared.php');
+}
+
 /**
  * Implements hook_library_info_alter().
  *
  * Makes replacement of core admin_bar CSS with Gin's version more robust.
  */
 function tonic_library_info_alter(&$libraries, $module) {
+  $gin_activations = _tonic_gin_is_activated('all');
+  if (!empty($gin_activations['gin'])) {
+    include_once(backdrop_get_path('theme', 'gin') . '/includes/libraries.php');
+    $libraries += gin_library_info();
+  }
   // Update Admin Bar styles.
   if ($module == 'admin_bar' && isset($libraries['admin_bar']) && _tonic_gin_is_activated('admin_bar')) {
     $libraries['admin_bar']['css'] = array(
@@ -27,25 +36,27 @@ function tonic_library_info_alter(&$libraries, $module) {
 function tonic_preprocess_page(&$variables) {
   $gin_activations = _tonic_gin_is_activated('all');
   if (!empty($gin_activations['gin'])) {
+    if (function_exists('gin_add_module_libraries')) {
+      gin_add_module_libraries();
+    }
     $basethemeurl = backdrop_get_path('theme', 'gin');
-    backdrop_add_library('tonic', 'gin_init');
-    backdrop_add_library('tonic', 'gin_settings');
+    backdrop_add_library('gin', 'gin_init');
     backdrop_add_css($basethemeurl . '/dist/css/theme/font.css');
     backdrop_add_css($basethemeurl . '/dist/css/theme/variables.css');
     backdrop_add_css($basethemeurl . '/dist/css/theme/accent.css');
     if (!empty($gin_activations['admin_bar'])) {
-      backdrop_add_library('tonic', 'gin_admin_bar');
+      backdrop_add_library('gin', 'gin_admin_bar');
       if (config_get('admin_bar.settings', 'position_fixed')) {
         $variables['classes'][] = 'admin-bar--fixed';
       }
     }
     // @todo Make these optional?
-    backdrop_add_library('tonic', 'gin_dialog');
+    backdrop_add_library('gin', 'gin_dialog');
     if (module_exists('coffee')) {
-      backdrop_add_library('tonic', 'gin_coffee');
+      backdrop_add_library('gin', 'gin_coffee');
     }
     if (module_exists('ckeditor5')) {
-      backdrop_add_library('tonic', 'gin_ckeditor5');
+      backdrop_add_library('gin', 'gin_ckeditor5');
     }
 
     $variables['html_classes'] = [];
@@ -83,84 +94,9 @@ function tonic_preprocess_page(&$variables) {
     $variables['body_attributes']['data-gin-layout-density'] = theme_get_setting('layout_density', 'gin');
     $variables['classes'][] = 'tonic--enabled';
     if (_tonic_gin_is_activated('simplei')) {
-      backdrop_add_library('tonic', 'gin_simplei');
+      backdrop_add_library('gin', 'gin_simplei');
     }
   }
-}
-
-/**
- * Implements hook_library_info().
- *
- * We have to redeclare some of these because Gin is not the current theme, and
- * libraries defined by themes aren't available to modules.
- */
-function tonic_library_info() {
-  $basethemeurl = backdrop_get_path('theme', 'gin');
-
-  $libraries = [
-    'gin_init' => [
-      'title' => 'Init',
-      'version' => BACKDROP_VERSION,
-      'header' => TRUE,
-      'js' => [
-        $basethemeurl . '/dist/js/init.js' => [],
-      ],
-    ],
-    'gin_settings' => [
-      'title' => 'Settings',
-      'version' => BACKDROP_VERSION,
-      'js' => [
-        $basethemeurl . '/dist/js/settings.js' => [],
-      ],
-      'css' => [
-        $basethemeurl . '/dist/css/components/settings.css' => [],
-      ],
-      'dependencies' => [
-        ['gin', 'gin_once'],
-      ],
-    ],
-    'gin_dialog' => [
-      'title' => 'Dialog',
-      'version' => BACKDROP_VERSION,
-      'css' => [
-        $basethemeurl . '/dist/css/components/gin_dialog.css' => [],
-        $basethemeurl . '/dist/css/theme/dialog.css' => [],
-      ],
-    ],
-    'gin_admin_bar' => [
-      'title' => 'Admin Bar',
-      'version' => BACKDROP_VERSION,
-      'css' => [
-        $basethemeurl . '/dist/css/layout/gin_admin_bar.css' => [],
-      ],
-    ],
-    'gin_ckeditor5' => [
-      'title' => 'CKEditor5',
-      'version' => BACKDROP_VERSION,
-      'css' => [
-        $basethemeurl . '/dist/css/components/gin_ckeditor5.css' => [],
-      ],
-    ],
-    'gin_coffee' => [
-      'title' => 'Coffee',
-      'version' => BACKDROP_VERSION,
-      'css' => [
-        $basethemeurl . '/dist/css/components/gin_coffee.css' => [
-          'type' => 'file',
-          'media' => 'screen',
-        ],
-      ],
-    ],
-    'gin_simplei' => [
-      'title' => 'Simple Environment Indicator',
-      'version' => BACKDROP_VERSION,
-      'css' => [
-        $basethemeurl . '/dist/css/components/gin_simplei.css' => [],
-      ],
-    ],
-  ];
-
-  return $libraries;
 }
 
 /**
