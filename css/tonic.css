@@ -40,18 +40,19 @@ body:not(.logged-in) .sticky-shadow {
   inset-block-start: 0px;
 }
 
-.crm-container .crm-submit-buttons .crm-button, .crm-container div.action-link a.button, .crm-container .crm-submit-buttons a.button, .crm-container .crm-submit-buttons a.button:link, #crm-main-content-wrapper a.button, .crm-container .crm-register-button {
+.crm-container .crm-submit-buttons .crm-button, .crm-container div.action-link a.button, .crm-container .crm-submit-buttons a.button, .crm-container .crm-submit-buttons a.button:link, #crm-main-content-wrapper a.button, .crm-container .crm-register-button, #crm-container .crm-form-submit {
   height: auto;
   border: 4px solid var(--gin-color-primary);
   background: #181A1C;
   font-size: 1.4em;
   font-weight: normal;
+  color: #fff;
   margin: 0 6px 0 0;
   padding: 2px 8px;
   text-decoration: none;
 }
 
-#crm-container .crm-register-button:hover {
+#crm-container .crm-register-button:hover, #crm-container .crm-form-submit:hover, #crm-container a.button:hover {
   background: #3e3e3e!important;
 }
 
@@ -102,5 +103,53 @@ body #bootstrap-theme h3 {
 }
 
 .crm-container#select2-drop {
+  background: #fff;
+}
+
+#crm-container .crm-form-radio {
+  border-radius: 10px;
+}
+
+#crm-container summary {
+  max-width: 95%;
+  padding-left: 50px;
+}
+
+#crm-container .crm-dashlet-header h3 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  color: #fff;
+  font-weight: bold;
+}
+
+#crm-container .crm-dashlet-header i {
+  color: #fff;
+}
+
+#crm-container .crm-inactive-dashlet {
+  height: 40px;
+}
+
+#crm-container .ui-tabs-nav a {
+  min-height: 0px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+#crm-container .ui-tabs-nav li {
+  border-radius: 10px 10px 0px 0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+#crm-container #customFields summary {
+  width: 50%;
+  padding: 5px;
+  font-weight: bold;
+  background-color: #5d677b;
+  color: #fff;
+}
+
+#crm-container #customFields summary:before {
+  color: #fff;
   background: #fff;
 }
