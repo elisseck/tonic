@@ -110,7 +110,7 @@ body #bootstrap-theme h3 {
   border-radius: 10px;
 }
 
-#crm-container summary {
+#crm-container summary, .crm-container .crm-ajax-container .crm-accordion-bold summary {
   max-width: 95%;
   padding-left: 50px;
 }
@@ -152,4 +152,8 @@ body #bootstrap-theme h3 {
 #crm-container #customFields summary:before {
   color: #fff;
   background: #fff;
+}
+
+.crm-container #crm-contact-actions-list ul li a {
+  padding: 3px 5px;
 }
