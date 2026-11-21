@@ -106,7 +106,7 @@ body #bootstrap-theme h3 {
   background: #fff;
 }
 
-#crm-container .crm-form-radio {
+#crm-container .crm-form-radio, .crm-container .crm-form-block .crm-form-radio {
   border-radius: 10px;
 }
 
